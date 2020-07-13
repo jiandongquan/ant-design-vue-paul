@@ -46,6 +46,8 @@ export default {
   // 图标库URL
   iconfontUrl: '',
 
+  whiteList: ['login', 'register', 'registerResult'],
+
   // 是否生产版本；
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }
