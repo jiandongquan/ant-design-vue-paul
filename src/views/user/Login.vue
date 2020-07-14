@@ -62,9 +62,6 @@
 import md5 from 'md5'
 import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
-import { FormModel } from 'ant-design-vue'
-import Vue from 'vue'
-Vue.use(FormModel)
 export default {
   data () {
     return {
