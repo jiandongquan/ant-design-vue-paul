@@ -52,3 +52,11 @@ export default {
 
 // 免登陆白名单
 export const whiteList = ['login', 'register', 'registerResult']
+
+// 显示在登陆页面上的相关信息
+export const LoginInfo = {
+  Copyright: 'Antz workshop',
+  AppTitle: 'Antz后台管理系统',
+  Description: '专门为Antz定制的前端管理框架',
+  LogoImage: '/logo.svg'
+}

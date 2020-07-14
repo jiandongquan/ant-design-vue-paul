@@ -4,25 +4,20 @@
       <div class="top">
         <div class="header">
           <a href="/">
-            <img src="~@/assets/logo.svg" class="logo" alt="logo">
-            <span class="title">Ant Design</span>
+            <img :src="LogoImage" class="logo" alt="logo">
+            <span class="title">{{ AppTitle }}</span>
           </a>
         </div>
         <div class="desc">
-          Ant Design 是西湖区最具影响力的 Web 设计规范
+          {{ Description }}
         </div>
       </div>
 
       <router-view />
 
       <div class="footer">
-        <div class="links">
-          <a href="_self">帮助</a>
-          <a href="_self">隐私</a>
-          <a href="_self">条款</a>
-        </div>
         <div class="copyright">
-          Copyright &copy; 2018 vueComponent
+          Copyright &copy; {{ Copyright }}
         </div>
       </div>
     </div>
@@ -31,10 +26,25 @@
 
 <script>
 import { deviceMixin } from '@/store/device-mixin'
+import { LoginInfo } from '@/config/defaultSettings'
 
 export default {
   name: 'UserLayout',
   mixins: [deviceMixin],
+  computed: {
+    Copyright () {
+      return LoginInfo.Copyright
+    },
+    AppTitle () {
+      return LoginInfo.AppTitle
+    },
+    Description () {
+      return LoginInfo.Description
+    },
+    LogoImage () {
+      return LoginInfo.LogoImage
+    }
+  },
   mounted () {
     document.body.classList.add('userLayout')
   },
