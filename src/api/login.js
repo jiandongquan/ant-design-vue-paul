@@ -3,6 +3,7 @@ import request from '@/utils/request'
 const userApi = {
   Login: '/auth/login',
   Logout: '/auth/logout',
+  CaptchaInfo: '/auth/captchainfo',
   ForgePassword: '/auth/forge-password',
   Register: '/auth/register',
   twoStepCode: '/auth/2step-code',
@@ -29,6 +30,13 @@ export function login (parameter) {
     url: userApi.Login,
     method: 'post',
     data: parameter
+  })
+}
+
+export function getCaptchaInfo () {
+  return request({
+    url: userApi.CaptchaInfo,
+    method: 'get'
   })
 }
 
