@@ -15,20 +15,25 @@
           placeholder="账户"
           v-model="loginForm.username"
           tabindex="1"
+          ref="usernameinput"
         >
           <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
         </a-input>
       </a-form-model-item>
 
       <a-form-model-item prop="password">
-        <a-input-password
-          size="large"
-          placeholder="密码"
-          v-model="loginForm.password"
-          tabindex="2"
-        >
-          <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-        </a-input-password>
+        <a-tooltip placement="right" title="大写键已经打开" :visible="capsTooltip">
+          <a-input-password
+            size="large"
+            placeholder="密码"
+            v-model="loginForm.password"
+            tabindex="2"
+            @keyup.native="checkCapslock"
+            ref="passwordinput"
+          >
+            <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+          </a-input-password>
+        </a-tooltip>
       </a-form-model-item>
       <a-form-model-item prop="captchaCode">
         <a-input
@@ -37,6 +42,7 @@
           v-model="loginForm.captchaCode"
           class="captchainput"
           tabindex="3"
+          ref="captchacodeinput"
         >
           <a-icon slot="prefix" type="safety" :style="{ color: 'rgba(0,0,0,.25)' }"/>
         </a-input>
@@ -87,7 +93,7 @@ export default {
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ],
-        captcha: [
+        captchaCode: [
           { required: true, message: '请输入验证码', trigger: 'blur' }
         ]
       },
@@ -96,11 +102,21 @@ export default {
         loginBtn: false
       },
       // 验证码图片的URL连接
-      captchaURL: ''
+      captchaURL: '',
+      capsTooltip: false
     }
   },
   created () {
     this.getCaptcha()
+  },
+  mounted () {
+    if (this.loginForm.username === '') {
+      this.$refs.usernameinput.focus()
+    } else if (this.loginForm.password === '') {
+      this.$refs.passwordinput.focus()
+    } else if (this.loginForm.captchaCode === '') {
+      this.$refs.captchacodeinput.focus()
+    }
   },
   methods: {
     // 导入store中的两个函数
@@ -126,7 +142,7 @@ export default {
         } else {
           setTimeout(() => {
             this.state.loginBtn = false
-          }, 600)
+          }, 500)
         }
       })
     },
@@ -148,6 +164,7 @@ export default {
     // 登陆失败，则显示错误信息；
     requestFailed (err) {
       this.isLoginError = true
+      this.$refs.usernameinput.focus()
       this.notificationFailed(err, '请求出现错误，请稍后再试')
     },
 
@@ -176,6 +193,12 @@ export default {
           this.captchaURL = res.result.captchaURL
         })
         .catch(err => this.notificationFailed(err, '验证码获取错误，请稍后再试'))
+    },
+
+    // 检查大写键是否已经开启
+    checkCapslock (e) {
+      const { key } = e
+      this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
     }
   }
 }
