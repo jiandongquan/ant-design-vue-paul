@@ -7,7 +7,7 @@ import notification from 'ant-design-vue/es/notification'
 import { setDocumentTitle, domTitle } from '@/utils/domUtil'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { i18nRender } from '@/locales'
-import defaultConfig from '@/config/defaultSettings'
+import { whiteList } from '@/config/defaultSettings'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -61,7 +61,7 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else {
-    if (defaultConfig.whiteList.includes(to.name)) {
+    if (whiteList.includes(to.name)) {
       // 在免登录白名单，直接进入
       next()
     } else {

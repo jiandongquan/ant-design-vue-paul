@@ -37,8 +37,8 @@ export default {
     locale: true
   },
 
-  // 应用标题
-  title: 'Ant Design Pro',
+  // 应用标题-显示在菜单栏与浏览器页面中
+  title: 'AntzX后台管理系统',
 
   // pwa模式
   pwa: false,
@@ -46,8 +46,9 @@ export default {
   // 图标库URL
   iconfontUrl: '',
 
-  whiteList: ['login', 'register', 'registerResult'],
-
   // 是否生产版本；
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
 }
+
+// 免登陆白名单
+export const whiteList = ['login', 'register', 'registerResult']
