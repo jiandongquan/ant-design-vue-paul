@@ -62,6 +62,7 @@ const permission = {
     }
   },
   actions: {
+    // 此处传入的data为const roles = res.result && res.result.role
     GenerateRoutes ({ commit }, data) {
       return new Promise(resolve => {
         const { roles } = data
